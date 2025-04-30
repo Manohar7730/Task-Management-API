@@ -86,3 +86,32 @@ module.exports.update = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
+module.exports.updateStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!['pending', 'in-progress', 'completed'].includes(status)) {
+      return res.status(400).json({ success: false, message: "Invalid status value" });
+    }
+
+    const updatedTask = await Task.findByIdAndUpdate(
+      id,
+      { status }, 
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedTask) {
+      return res.status(404).json({ success: false, message: "Task not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Task status updated successfully",
+      data: updatedTask,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
