@@ -42,3 +42,22 @@ module.exports.create = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
+module.exports.delete = async (req,res) =>{
+  try{
+    const {id} = req.params;
+    const deletedTask = await Task.findByIdAndDelete(id);
+
+    if (!deletedTask) {
+      return res.status(404).json({ success: false, message: "Task not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Task deleted successfully",
+      data: deletedTask,
+    });
+  }catch(err){
+    res.status(500).json({success: false, message: err.message})
+  }
+}
