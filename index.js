@@ -1,6 +1,7 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/mongoose");
+const router = require("./routes/taskRouter");
 
 const app = express();
 
@@ -12,8 +13,6 @@ connectDB().then(() => {
   });
 });
 
-app.get("/", (req, res) => {
-  res.send("Task Manager API is running...");
-});
+app.get("/", router);
 
 module.exports = app;
