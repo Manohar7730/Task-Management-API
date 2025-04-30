@@ -21,3 +21,24 @@ module.exports.home = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
+module.exports.create = async (req, res) => {
+  try {
+    const { title, description, status } = req.body;
+
+    const newTask = new Task({
+      title,
+      description,
+      status,
+    });
+
+    const savedTask = await newTask.save();
+
+    res.status(201).json({
+      success: true,
+      data: savedTask,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};

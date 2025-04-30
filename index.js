@@ -12,7 +12,8 @@ connectDB().then(() => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
   });
 });
+app.use(express.json());
 
-app.get("/", router);
+app.use("/", router);
 
 module.exports = app;
