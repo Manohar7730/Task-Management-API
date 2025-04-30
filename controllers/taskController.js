@@ -61,3 +61,28 @@ module.exports.delete = async (req,res) =>{
     res.status(500).json({success: false, message: err.message})
   }
 }
+
+module.exports.update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, status } = req.body;
+
+    const updatedTask = await Task.findByIdAndUpdate(
+      id,
+      { title, description, status },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedTask) {
+      return res.status(404).json({ success: false, message: "Task not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Task updated successfully",
+      data: updatedTask,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
