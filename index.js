@@ -15,11 +15,11 @@ connectDB().then(() => {
 });
 
 const corsOptions = {
-  origin: "https://trackitdaily.netlify.app/", // Replace with your Netlify URL
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+  origin: "https://trackitdaily.netlify.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
