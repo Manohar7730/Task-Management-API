@@ -24,12 +24,12 @@ module.exports.home = async (req, res) => {
 
 module.exports.create = async (req, res) => {
   try {
-    const { title, description, status } = req.body;
+    const { title, description, category } = req.body;
 
     const newTask = new Task({
       title,
       description,
-      status,
+      category,
     });
 
     const savedTask = await newTask.save();
@@ -43,13 +43,15 @@ module.exports.create = async (req, res) => {
   }
 };
 
-module.exports.delete = async (req,res) =>{
-  try{
-    const {id} = req.params;
+module.exports.delete = async (req, res) => {
+  try {
+    const { id } = req.params;
     const deletedTask = await Task.findByIdAndDelete(id);
 
     if (!deletedTask) {
-      return res.status(404).json({ success: false, message: "Task not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
     }
 
     res.status(200).json({
@@ -57,24 +59,26 @@ module.exports.delete = async (req,res) =>{
       message: "Task deleted successfully",
       data: deletedTask,
     });
-  }catch(err){
-    res.status(500).json({success: false, message: err.message})
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-}
+};
 
 module.exports.update = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, status } = req.body;
+    const { title, description, category } = req.body;
 
     const updatedTask = await Task.findByIdAndUpdate(
       id,
-      { title, description, status },
+      { title, description, category },
       { new: true, runValidators: true }
     );
 
     if (!updatedTask) {
-      return res.status(404).json({ success: false, message: "Task not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
     }
 
     res.status(200).json({
@@ -87,28 +91,32 @@ module.exports.update = async (req, res) => {
   }
 };
 
-module.exports.updateStatus = async (req, res) => {
+module.exports.updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
+    const { category } = req.body;
 
-    if (!['pending', 'in-progress', 'completed'].includes(status)) {
-      return res.status(400).json({ success: false, message: "Invalid status value" });
+    if (!["pending", "in-progress", "completed"].includes(category)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid status value" });
     }
 
     const updatedTask = await Task.findByIdAndUpdate(
       id,
-      { status }, 
+      { category },
       { new: true, runValidators: true }
     );
 
     if (!updatedTask) {
-      return res.status(404).json({ success: false, message: "Task not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
     }
 
     res.status(200).json({
       success: true,
-      message: "Task status updated successfully",
+      message: "Task category updated successfully",
       data: updatedTask,
     });
   } catch (err) {
