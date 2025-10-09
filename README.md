@@ -1,30 +1,30 @@
-# Task Management API - Setup & Usage Guide
+# Task Management App - Full Stack Application
 
-----
+A full-stack task management application with React frontend and Node.js backend with column-based organization.
 
-# STEP 1: Clone the repository
+**Live Demo:** [https://task-management-app-1-09j9.onrender.com/](https://task-management-app-1-09j9.onrender.com/)
+
+## 🚀 Features
+- Column-based task organization (Pending, In Progress, Completed)
+- Complete CRUD operations for tasks
+- Drag-and-drop functionality between status columns
+- Detailed task descriptions and status tracking
+
+## 🛠️ Tech Stack
+- **Frontend:** React, CSS
+- **Backend:** Node.js, Express.js, MongoDB, Mongoose
+- **Deployment:** Render
+- **Architecture:** REST API with React SPA
+
+## 📋 Installation
+### Backend Setup:
+```bash
 git clone https://github.com/Manohar7730/Task-Management-API.git
 cd Task-Management-API
-
-# STEP 2: Install dependencies
 npm install
+npm start
 
-# STEP 3: Create environment variables file
-.env
-
-# Add the following lines in the .env file
-'MONGO_URI=mongodb://127.0.0.1:27017/task-manager' >> .env
-
-# STEP 4: Run MongoDB server locally (if not already running)
-# Ensure MongoDB is installed and in PATH
-
-# STEP 5: Start the API server
-node index.js
-
-# Server will run at: http://localhost:5000
-# You should see:
-# 🚀 Server running at http://localhost:5000
-# MongoDB is connected!
+```
 
 # -----------------------------------------
 # API Testing with Postman
